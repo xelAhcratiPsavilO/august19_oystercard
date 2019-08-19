@@ -1,7 +1,9 @@
 class Oystercard
 
-  def check_tests
-    return "Test Infraestructure working"
+  attr_reader :balance
+
+  def initialize
+    @balance = 0
   end
 
 end
