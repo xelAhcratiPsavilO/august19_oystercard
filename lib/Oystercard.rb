@@ -1,7 +1,7 @@
 class Oystercard
 
   MAX_BALANCE = 100
-
+  
   attr_reader :balance
 
   def initialize
@@ -9,8 +9,14 @@ class Oystercard
   end
 
   def top_up(credit)
-    raise "sorry max balance is #{MAX_BALANCE}" if @balance + credit > MAX_BALANCE
+    raise "max balance of #{MAX_BALANCE} exceeded" if beyond_max?(credit)
     @balance += credit
+  end
+
+  private
+
+  def beyond_max?(credit)
+    @balance + credit > MAX_BALANCE
   end
 
 end

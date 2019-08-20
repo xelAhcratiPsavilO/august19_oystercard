@@ -19,7 +19,9 @@ describe Oystercard do
 
     context 'when the max balance is reached' do
       it 'raises an error' do
-        expect { oystercard.top_up 101 }.to raise_error "sorry max balance is #{described_class::MAX_BALANCE}"
+        max_balance = Oystercard::MAX_BALANCE
+        oystercard.top_up(max_balance)
+        expect { oystercard.top_up 1 }.to raise_error "max balance of #{max_balance} exceeded"
       end
     end
   end
