@@ -32,4 +32,25 @@ describe Oystercard do
     end
   end
 
+  describe '#in_journey?' do
+    it 'is deactivated by default' do
+      expect(oystercard).to_not be_in_journey
+    end
+  end
+
+  describe '#touch_in' do
+    it 'activates in journey' do
+      oystercard.touch_in
+      expect(oystercard).to be_in_journey
+    end
+  end
+
+  describe '#touch_out' do
+    it 'deactivates in journey' do
+      oystercard.touch_in
+      oystercard.touch_out
+      expect(oystercard).to_not be_in_journey
+    end
+  end
+
 end
