@@ -26,4 +26,10 @@ describe Oystercard do
     end
   end
 
+  describe '#deduct' do
+    it 'substracts credit from the card' do
+      expect { oystercard.deduct 30 }.to change { oystercard.balance }.by -30
+    end
+  end
+
 end
