@@ -39,14 +39,14 @@ describe Oystercard do
   end
 
   describe '#touch_in' do
-    it 'activates in journey' do
+    it 'activates journey' do
       oystercard.touch_in
       expect(oystercard).to be_in_journey
     end
   end
 
   describe '#touch_out' do
-    it 'deactivates in journey' do
+    it 'deactivates journey' do
       oystercard.touch_in
       oystercard.touch_out
       expect(oystercard).to_not be_in_journey
