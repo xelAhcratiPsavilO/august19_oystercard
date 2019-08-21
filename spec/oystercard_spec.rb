@@ -32,19 +32,8 @@ describe Oystercard do
     end
   end
 
-  describe '#in_journey?' do
-    it 'is deactivated by default' do
-      expect(oystercard).to_not be_in_journey
-    end
-  end
-
   describe '#touch_in' do
     context 'when I have sufficient funds' do
-      it 'activates journey' do
-        oystercard.top_up min_balance
-        oystercard.touch_in(entry_station)
-        expect(oystercard).to be_in_journey
-      end
       it 'registers the entry station' do
         oystercard.top_up min_balance
         oystercard.touch_in(entry_station)
@@ -60,12 +49,6 @@ describe Oystercard do
   end
 
   describe '#touch_out' do
-    it 'deactivates journey' do
-      oystercard.top_up min_balance
-      oystercard.touch_in(entry_station)
-      oystercard.touch_out(exit_station)
-      expect(oystercard).to_not be_in_journey
-    end
     it 'deducts fare' do
       oystercard.top_up min_balance
       oystercard.touch_in(entry_station)

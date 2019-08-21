@@ -27,10 +27,6 @@ class Oystercard
     register_journey
   end
 
-  def in_journey?
-    @in_journey
-  end
-
   private
 
   def deduct(credit)
