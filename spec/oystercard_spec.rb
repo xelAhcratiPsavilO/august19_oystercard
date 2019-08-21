@@ -1,8 +1,11 @@
 require 'oystercard'
 
 describe Oystercard do
+
   min_balance = Oystercard::MIN_BALANCE
   max_balance = Oystercard::MAX_BALANCE
+
+  let(:station){ double :station }
 
   subject(:oystercard) { described_class.new }
 
@@ -37,14 +40,19 @@ describe Oystercard do
     context 'when I have sufficient funds' do
       it 'activates journey' do
         oystercard.top_up min_balance
-        oystercard.touch_in
+        oystercard.touch_in(station)
         expect(oystercard).to be_in_journey
+      end
+      it 'registers the entry station' do
+        oystercard.top_up min_balance
+        oystercard.touch_in(station)
+        expect(oystercard.entry_station).to eq station
       end
     end
 
     context 'when I do not have sufficient funds' do
       it 'raises an error' do
-        expect { oystercard.touch_in}.to raise_error "min balance of #{min_balance} not reached"
+        expect { oystercard.touch_in(station)}.to raise_error "min balance of #{min_balance} not reached"
       end
     end
   end
@@ -52,13 +60,13 @@ describe Oystercard do
   describe '#touch_out' do
     it 'deactivates journey' do
       oystercard.top_up min_balance
-      oystercard.touch_in
+      oystercard.touch_in(station)
       oystercard.touch_out
       expect(oystercard).to_not be_in_journey
     end
     it 'deactivates journey' do
       oystercard.top_up min_balance
-      oystercard.touch_in
+      oystercard.touch_in(station)
       expect { oystercard.touch_out }.to change { oystercard.balance }.by -min_balance
     end
   end
