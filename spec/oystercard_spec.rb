@@ -39,14 +39,24 @@ describe Oystercard do
   end
 
   describe '#touch_in' do
-    it 'activates journey' do
-      oystercard.touch_in
-      expect(oystercard).to be_in_journey
+    context 'when I have sufficient funds' do
+      it 'activates journey' do
+        oystercard.top_up 1
+        oystercard.touch_in
+        expect(oystercard).to be_in_journey
+      end
+    end
+
+    context 'when I do not have sufficient funds' do
+      it 'raises an error' do
+        expect { oystercard.touch_in}.to raise_error "min balance of 1 not reached"
+      end
     end
   end
 
   describe '#touch_out' do
     it 'deactivates journey' do
+      oystercard.top_up 1
       oystercard.touch_in
       oystercard.touch_out
       expect(oystercard).to_not be_in_journey
