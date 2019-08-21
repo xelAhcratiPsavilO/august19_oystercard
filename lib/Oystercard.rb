@@ -15,16 +15,13 @@ class Oystercard
     @balance += credit
   end
 
-  def deduct(credit)
-    @balance -= credit
-  end
-
   def touch_in
     raise "min balance of 1 not reached" if bellow_min?
     @journey = true
   end
 
   def touch_out
+    deduct(MIN_BALANCE)
     @journey = false
   end
 
@@ -33,6 +30,10 @@ class Oystercard
   end
 
   private
+
+  def deduct(credit)
+    @balance -= credit
+  end
 
   def beyond_max?(credit)
     @balance + credit > MAX_BALANCE
