@@ -13,7 +13,7 @@ describe Oystercard do
 
   describe '#balance' do
     it 'reads current balance' do
-      expect(oystercard.balance).to eq(0)
+      expect(oystercard.balance).to eq 0
     end
   end
 
